@@ -7,7 +7,6 @@ link to site: https://bentam64.github.io/Insight-Reports/
 Explore this 
 
 
-<iframe>
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -43,4 +42,3 @@ Explore this
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
-</iframe>
