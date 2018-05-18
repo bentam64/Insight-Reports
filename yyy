@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Access an array value of a JSON object.</p>
+
+<p id="demo"></p>
+
+<script>
+
+var  DisplayVAR; 
+var resultl;
+var json
+var myObj
+
+
+//$.getJSON("https://raw.githubusercontent.com/bentam64/Insight-Reports/gh-pages/DAAT2.json", function (json) {
+//myObj = json;
+//};
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+myObj= {
+
+		"id": [1,2,3,4],
+		"gender": [0,1,1,1], 
+		"age": [16,40,33,23],
+		"income": [50000,34000,64000,20000],
+		"2321": [456456,34000,64000,20000],
+		"qweqwewq": [50000,34000,64000,20000],
+		"Time" :  [ 0,1,2,3,4,5,6,7,8,9,10],
+
+		"Anger":      [[ 0,2,1,3,1,9,3,2,4,4, 3],
+                  [ 1,2,1,3,1,9,3,2,4,4, 3],
+                  [ 4,2,1,3,1,9,3,2,4,4, 3],
+                  [ 0,2,1,3,1,9,3,2,4,4, 3]],
+
+		"Fear":       [[ 6,2,1,3,1,3,3,2,4,4, 3],
+                  [ 2,5,1,3,1,9,1,2,4,2, 3],
+                  [ 1,3,1,3,1,4,3,2,4,2, 3],
+                  [ 2,8,1,3,1,9,3,2,4,1, 3]],
+
+		"Sadness":    [[ 4,9,1,3,1,5,3,2,4,3, 3],
+                  [ 2,4,1,3,1,9,3,2,4,4, 3],
+                  [ 1,1,1,3,1,8,3,2,4,3, 3],
+                  [ 8,2,1,3,1,9,3,2,4,4, 3]],
+
+		"Happiness":  [[ 1,7,1,3,1,9,3,2,4,4, 3],
+                  [ 2,4,1,3,1,9,5,2,4,5, 3],
+                  [ 3,9,1,3,1,9,2,2,4,4, 3],
+                  [ 9,1,1,3,1,9,3,2,4,8, 3]]
+	};
+
+
+
+
+
+
+//  Average Emotion Data 
+var FocusGroupSize = Object.keys(myObj.id).length
+
+var TimeLength = Object.keys(myObj.Time).length
+var i; 
+var TotalAnger = 0 ;
+
+var j;
+
+for ( i = 0 ; i< FocusGroupSize; i++ ){
+
+  for ( i = 0 ; j< TimeLength; j++ ){
+
+	  TotalAnger =(TotalAnger) + parseFloat(myObj.Anger[i][j])   ;   
+	
+	};
+
+};
+
+
+
+ 
+
+//TotalAnger =  parseInt(myObj.Anger[1][1])  + parseInt(myObj.Anger[2][1])   ;   
+
+
+
+///////////////////////////////////////
+	// 	DisplayVAR = TimeLength;
+ 	 		DisplayVAR = TotalAnger;
+	 //	DisplayVAR =   myObj.Anger[1][1] ;
+ 
+//////////////////////////////////////
+
+
+
+document.getElementById("demo").innerHTML = DisplayVAR;
+
+</script>
+
+</body>
+</html>
