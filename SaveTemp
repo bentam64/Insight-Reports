@@ -77,67 +77,53 @@
 
 
 
-    google.visualization.events.addListener(barChart, 'ready', function () {
+google.visualization.events.addListener(barChart, 'ready', function () {
 
-        // get the filtered data used to draw the BarChart
+var DataFiltered = pieChart.getDataTable();
 
-       var DataFiltered = pieChart.getDataTable();
-       
-var DisgustSum = google.visualization.data.group(DataFiltered, [0], 
-  [{'column': 5, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
-}
+    var DisgustSum = google.visualization.data.group(DataFiltered, [0], 
+      [{'column': 5, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
 
-var AngerSum = google.visualization.data.group(DataFiltered, [0], 
-  [{'column': 9, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
-}
+    var AngerSum = google.visualization.data.group(DataFiltered, [0], 
+      [{'column': 9, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
 
-var FearSum = google.visualization.data.group(DataFiltered, [0], 
-  [{'column': 6, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
-}
+    var FearSum = google.visualization.data.group(DataFiltered, [0], 
+      [{'column': 6, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
 
-var SurpriseSum = google.visualization.data.group(DataFiltered, [0], 
-  [{'column': 10, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
-}
+    var SurpriseSum = google.visualization.data.group(DataFiltered, [0], 
+      [{'column': 10, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
 
-var SadnessSum = google.visualization.data.group(DataFiltered, [0], 
-  [{'column': 8, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
-}
+    var SadnessSum = google.visualization.data.group(DataFiltered, [0], 
+      [{'column': 8, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
 
-var HappinessSum = google.visualization.data.group(DataFiltered, [0], 
-  [{'column': 7, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
-}
+    var HappinessSum = google.visualization.data.group(DataFiltered, [0], 
+      [{'column': 7, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
 
 
-
-
-
-HappinessSum.getValue(1, 1)
-
-      var data = google.visualization.arrayToDataTable([
+    	  var PieDATA = google.visualization.arrayToDataTable([
           ['Emotion', 'Score'],
-          ['Happiness',     HappinessSum.getValue(1, 1)],
-          ['Anger',      AngerSum.getValue(1, 1)],
-          ['Sadness',  SadnessSum.getValue(1, 1)],
-          ['Surprise', SurpriseSum.getValue(1, 1)],
-          ['Disgust', DisgustSum.getValue(1, 1)],
-          ['Fear',    FearSum.getValue(1, 1)]
+          ['Happiness',     HappinessSum.getValue(0, 1)],
+          ['Anger',      AngerSum.getValue(0, 1)],
+          ['Sadness',  SadnessSum.getValue(0, 1)],
+          ['Surprise', SurpriseSum.getValue(0, 1)],
+          ['Disgust', DisgustSum.getValue(0, 1)],
+          ['Fear',    FearSum.getValue(0, 1)]
         ]);
 
 
+        // Create a pie chart, passing some options
+        var pieChartFiltered = new google.visualization.ChartWrapper({
+          'chartType': 'PieChart',
+          'containerId': 'PiechartFiltered_div',
+          'options': {
+            'width': 300,
+            'height': 300,
+            'legend': 'right'
+          }
+        });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+	 pieChartFiltered.draw(PieDATA)
 
 };
 
