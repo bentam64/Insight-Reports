@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      // Load the Visualization API and the controls package.
+      google.charts.load('current', {'packages':['corechart', 'controls']});
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawDashboard);
+      // Callback that creates and populates a data table,
+      // instantiates a dashboard, a range slider and a pie chart,
+      // passes in the data and draws it.
+      function drawDashboard() {
+        // Create our data table.
+  var data = google.visualization.arrayToDataTable([
+    ['opt','Gender', 'Age', 'Income','Nationality','Education','Disgust','Fear','Happiness','Sadness', 'Anger','Surprise' ],
+    [0,'Male' ,  30,	 13212,    'Chinese',        'PhD'    ,   5    ,  7 , 	  3     ,     2      ,  1     ,  2      ],
+    [0,'Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    [0,'Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    [0,'Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    [0,'Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    [0,'Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    [0,'Male',   34,   124242,    'USA',           'PhD'    ,   5    ,  7 ,     6     ,     7      ,  3     ,  2      ]
+  ]);
+  
+        // Create a dashboard.
+        var dashboard = new google.visualization.Dashboard(
+            document.getElementById('dashboard_div'));
+        // Create a range slider, passing some options
+        var AgeRangeSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'agefilter_div',
+          'options': {
+            'filterColumnLabel': 'Age'
+          }
+        });
+        var IncomeRangeSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'incomefilter_div',
+          'options': {
+            'filterColumnLabel': 'Income'
+          }
+        });        
+        
+         var EducationRangeSlider = new google.visualization.ControlWrapper({
+          'controlType': 'CategoryFilter',
+          'containerId': 'educationfilter_div',
+          'options': {
+            'filterColumnLabel': 'Education'
+          }
+        });        
+               
+        
+        
+        
+        
+        
+        
+        // Create a pie chart, passing some options
+        var pieChart = new google.visualization.ChartWrapper({
+          'chartType': 'PieChart',
+          'containerId': 'chart_div',
+          'options': {
+            'width': 300,
+            'height': 300,
+            'legend': 'right'
+          },
+              'view': {'columns': [0, 6]}
+        });
+        // Establish dependencies, declaring that 'filter' drives 'pieChart',
+        // so that the pie chart will only display entries that are let through
+        // given the chosen slider range.
+        dashboard.bind([EducationRangeSlider,IncomeRangeSlider,AgeRangeSlider], pieChart);
+        // Draw the dashboard.
+        dashboard.draw(data);
+      }
+
+
+
+    google.visualization.events.addListener(barChart, 'ready', function () {
+
+        // get the filtered data used to draw the BarChart
+
+       var DataFiltered = pieChart.getDataTable();
+       
+var DisgustSum = google.visualization.data.group(DataFiltered, [0], 
+  [{'column': 5, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
+}
+
+var AngerSum = google.visualization.data.group(DataFiltered, [0], 
+  [{'column': 9, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
+}
+
+var FearSum = google.visualization.data.group(DataFiltered, [0], 
+  [{'column': 6, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
+}
+
+var SurpriseSum = google.visualization.data.group(DataFiltered, [0], 
+  [{'column': 10, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
+}
+
+var SadnessSum = google.visualization.data.group(DataFiltered, [0], 
+  [{'column': 8, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
+}
+
+var HappinessSum = google.visualization.data.group(DataFiltered, [0], 
+  [{'column': 7, 'aggregation': google.visualization.data.sum, 'type': 'number'}])
+}
+
+
+
+
+
+HappinessSum.getValue(1, 1)
+
+      var data = google.visualization.arrayToDataTable([
+          ['Emotion', 'Score'],
+          ['Happiness',     HappinessSum.getValue(1, 1)],
+          ['Anger',      AngerSum.getValue(1, 1)],
+          ['Sadness',  SadnessSum.getValue(1, 1)],
+          ['Surprise', SurpriseSum.getValue(1, 1)],
+          ['Disgust', DisgustSum.getValue(1, 1)],
+          ['Fear',    FearSum.getValue(1, 1)]
+        ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the dashboard-->
+    <div id="dashboard_div">
+      <!--Divs that will hold each control and chart-->
+      <div id="agefilter_div"></div>
+      <div id="incomefilter_div"></div>
+      <div id="educationfilter_div"></div>
+      <div id="chart_div"></div>
+    </div>
+  </body>
+</html>
