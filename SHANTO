@@ -4,15 +4,17 @@
     <div id="NationControl"></div>
     <div id="EducationControl"></div>
     <div id="GenderControl"></div>
+
+    <div id="Barchart1"></div>
     <div id="chart2"></div>
-    <div id="tablechart"></div>
-    <div id="chart1"></div>
+    
     <div id="fulltablechart"></div>
+
+
 </div>
 
 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,21 +26,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -60,46 +47,46 @@ function drawVisualization() {
     ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
     ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
     ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
-    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 42, 	 22320,    'USA',         'PhD' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
     ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
     ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
     ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
     ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
-    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 42, 	 22320,    'USA',         'Undergrad' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
     ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
-    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
-    ['Male',   51,   43622,    'Africa',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Female', 34,   32354,    'Canada',     'Undergrad' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Canada',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
     ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
-    ['Female', 42, 	 22320,    'Africa',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
-    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
-    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Female', 42, 	 22320,    'Chinese',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'PhD' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'PhD' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
     ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
-    ['Male',   24,   57863,    'Africa',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
-    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'PhD' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
     ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
     ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
-    ['Male',   51,   43622,    'Africa',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   51,   43622,    'Chinese',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
     ['Male',   24,   57863,    'Chinese',     'Undergrad' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
     ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
     ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
-    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Female', 34,   32354,    'Canada',     'Undergrad' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
     ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
-    ['Male',   24,   57863,    'Africa',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
     ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
-    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 52,   723123,    'Canada',     'PhD' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
     ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
-    ['Male',   51,   43622,    'Canada',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
-    ['Male',   24,   57863,    'Africa',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
-    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
-    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
-    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
-    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   51,   43622,    'Canada',     'PhD'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
     ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
     ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
     ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
     ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
     ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
     ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'PhD' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'PhD' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Chinese',     'Undergrad' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
     ['Male',   34,   124242,    'USA',           'PhD'    ,   5    ,  7 ,     6     ,     7      ,  3     ,  2      ]
   ]);
     
@@ -181,25 +168,28 @@ function drawVisualization() {
     //           Define Charts 
 		///////////////////////////////////////////////////////////////////////////////
 
-    // Define a bar chart to show 'Population' data
     var barChart = new google.visualization.ChartWrapper({
         'chartType': 'BarChart',
-        'containerId': 'chart1',
+        'containerId': 'Barchart1',
         'options': {
-            'width': 300,
-            'height': 300
-        },
+            'width': 800,
+            'height': 1500,
+            title: 'Emotion Response by Age' 
+            },
         'view': {
-            'columns': [3, 5]
+            'columns': [1, 5,6,7,8,9,10]
         }
     });
     
-    var pieChartA = new google.visualization.ChartWrapper({
+    var EmotionSumPieChart = new google.visualization.ChartWrapper({
         'chartType': 'PieChart',
         'containerId': 'chart2',
         'options': {
-            'width': 300,
-            'height': 300
+            'width': 700,
+            'height': 700,
+            title: 'Average Emotions Felt ',
+            pieSliceText: 'label',
+            is3D: true
         }
     });
             
@@ -232,20 +222,13 @@ function drawVisualization() {
               SumEmotionsData.addRow(['Surprise',     getSum(FilteredData, 10)  ]);
               
               
-					var table = new google.visualization.Table(document.getElementById('tablechart'));
-              table.draw(SumEmotionsData, {showRowNumber: true, width: '100%', height: '100%'});
 
 
 
 
 
-
-
-
-
-
-        pieChartA.setDataTable(SumEmotionsData);
-        pieChartA.draw();
+        EmotionSumPieChart.setDataTable(SumEmotionsData);
+        EmotionSumPieChart.draw();
         
         ParticipantTableChart.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
 
@@ -261,6 +244,3 @@ function drawVisualization() {
 }
 
 google.setOnLoadCallback(drawVisualization);
-
-
-
