@@ -1,9 +1,100 @@
+<div id="dashboard">
+    <div id="AgeControl"></div>
+    <div id="IncomeControl"></div>
+    <div id="NationControl"></div>
+    <div id="EducationControl"></div>
+    <div id="GenderControl"></div>
+    <div id="chart2"></div>
+    <div id="tablechart"></div>
+    <div id="chart1"></div>
+    <div id="fulltablechart"></div>
+</div>
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 google.load('visualization', '1', {packages: ['controls','table']});
+
 function drawVisualization() {
-    // Prepare the data
+		///////////////////////////////////////////////////////////////////////////////
+    //                           PREPARE    DATA 
+		///////////////////////////////////////////////////////////////////////////////
     var data = google.visualization.arrayToDataTable([
     ['Gender', 'Age', 'Income','Nationality','Education','Disgust','Fear','Happiness','Sadness', 'Anger','Surprise' ],
     ['Male' ,  30,	 13212,    'Chinese',        'PhD'    ,   5    ,  7 , 	  3     ,     2      ,  1     ,  2      ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Africa',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'Africa',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Africa',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Africa',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Chinese',     'Undergrad' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Africa',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Canada',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Africa',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
     ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
     ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
     ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
@@ -13,63 +104,83 @@ function drawVisualization() {
   ]);
     
     
-      function getSum(data, column) {
-    var total = 0;
-    for (i = 0; i < data.getNumberOfRows(); i++)
-      total = total + data.getValue(i, column);
-    return total;
-  }
+		///////////////////////////////////////////////////////////////////////////////
+    //                      PREPARE     INTERNAL    FUNCTIONS  
+		///////////////////////////////////////////////////////////////////////////////
+      function getSum(datatemp, column) {
+        var total = 0;
+        for (i = 0; i < datatemp.getNumberOfRows(); i++)
+          total = total + datatemp.getValue(i, column);
+        return total;
+      };
 
     
+       
     
     
+    ///////////////////////////////////////////////////////////////////////////////
+    //                      DEFINE     SCREENER    TOOLS  
+		///////////////////////////////////////////////////////////////////////////////
     
     
-    
-    
-    
-    
-    
-    
-    // Define category pickers for 'Country', 'Region/State' and 'City'
-    var countryPicker = new google.visualization.ControlWrapper({
+    var IncomePicker = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'IncomeControl',
+        'options': {
+            'filterColumnLabel': 'Income'
+            }                                                  });
+        
+    var AgePicker = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'AgeControl',
+        'options': {
+            'filterColumnLabel': 'Age'
+            }                                                  });
+
+    var GenderPicker = new google.visualization.ControlWrapper({
         'controlType': 'CategoryFilter',
-        'containerId': 'control1',
+        'containerId': 'GenderControl',
+        'options': {
+            'filterColumnLabel': 'Gender',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                     });
+
+      var EducationPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'EducationControl',
         'options': {
             'filterColumnLabel': 'Education',
             'ui': {
                 'labelStacking': 'vertical',
                 'allowTyping': false,
-                'allowMultiple': false,
-                'allowNone': false
-            }
-        },
-        'state': {
-            selectedValues: ['USA']
-        }
-    });
-    
-    var regionPicker = new google.visualization.ControlWrapper({
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });  
+
+    var NationalityPicker = new google.visualization.ControlWrapper({
         'controlType': 'CategoryFilter',
-        'containerId': 'control2',
+        'containerId': 'NationControl',
         'options': {
             'filterColumnLabel': 'Nationality',
             'ui': {
                 'labelStacking': 'vertical',
                 'allowTyping': false,
-                'allowMultiple': false,
-                'allowNone': false
-            }
-        },
-        'state': {
-            selectedValues: ['Canada']
-        }
-    });
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });
 
 
 
 
-    
+
+		///////////////////////////////////////////////////////////////////////////////
+    //           Define Charts 
+		///////////////////////////////////////////////////////////////////////////////
+
     // Define a bar chart to show 'Population' data
     var barChart = new google.visualization.ChartWrapper({
         'chartType': 'BarChart',
@@ -91,16 +202,8 @@ function drawVisualization() {
             'height': 300
         }
     });
-    
-    var pieChartB = new google.visualization.ChartWrapper({
-        'chartType': 'PieChart',
-        'containerId': 'chart3',                
-        'options': {
-            'width': 300,
-            'height': 300
-        }
-    });
-    
+            
+    var ParticipantTableChart = new google.visualization.Table(document.getElementById('fulltablechart'));
 
 
 
@@ -109,17 +212,18 @@ function drawVisualization() {
 
 
 
-    // use a "ready" event handler on the BarChart to aggregate the data for the PieCharts
+
+		///////////////////////////////////////////////////////////////////////////////
+    //            Aggregate the Filtered Data Selected for Charts
+		///////////////////////////////////////////////////////////////////////////////
     google.visualization.events.addListener(barChart, 'ready', function () {
         // get the filtered data used to draw the BarChart
         var FilteredData = barChart.getDataTable();
         
-
-
 			  var SumEmotionsData = new google.visualization.DataTable()
 
-             SumEmotionsData.addColumn('string', 'Emotion'); // Implicit domain column.
-             SumEmotionsData.addColumn('number', 'Intensity'); // Implicit data column.
+              SumEmotionsData.addColumn('string', 'Emotion'); // Implicit domain column.
+              SumEmotionsData.addColumn('number', 'Intensity'); // Implicit data column.
               SumEmotionsData.addRow(['Disgust',   getSum(FilteredData, 5)  ]);
               SumEmotionsData.addRow(['Fear',      getSum(FilteredData, 6)  ]);
               SumEmotionsData.addRow(['Happiness',     getSum(FilteredData,7)  ]);
@@ -140,13 +244,10 @@ function drawVisualization() {
 
 
 
-
-
         pieChartA.setDataTable(SumEmotionsData);
         pieChartA.draw();
         
-
-
+        ParticipantTableChart.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
 
 
 
@@ -155,9 +256,11 @@ function drawVisualization() {
     
     // Create the dashboard.
     var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
-    dash.bind(countryPicker, regionPicker);
-    dash.bind(regionPicker, [barChart]);
+    dash.bind([IncomePicker,GenderPicker,AgePicker,EducationPicker, NationalityPicker], [barChart]);
     dash.draw(data);
 }
 
 google.setOnLoadCallback(drawVisualization);
+
+
+
