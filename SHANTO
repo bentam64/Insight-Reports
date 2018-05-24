@@ -1,0 +1,163 @@
+google.load('visualization', '1', {packages: ['controls','table']});
+function drawVisualization() {
+    // Prepare the data
+    var data = google.visualization.arrayToDataTable([
+    ['Gender', 'Age', 'Income','Nationality','Education','Disgust','Fear','Happiness','Sadness', 'Anger','Surprise' ],
+    ['Male' ,  30,	 13212,    'Chinese',        'PhD'    ,   5    ,  7 , 	  3     ,     2      ,  1     ,  2      ],
+    ['Female', 42, 	 22320,    'USA',         'Highschool' ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9      ],
+    ['Female', 52,   723123,    'Canada',     'Undergrad' ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2      ],
+    ['Female', 34,   32354,    'Canada',     'Highschool' ,   4    ,  3 ,     3     ,     9      ,  5     ,  7      ],
+    ['Male',   51,   43622,    'Mexico',     'Undergrad'   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1      ],
+    ['Male',   24,   57863,    'Chinese',     'Highschool' ,  8    ,  5 ,     3     ,     2      ,  7    ,  5       ],
+    ['Male',   34,   124242,    'USA',           'PhD'    ,   5    ,  7 ,     6     ,     7      ,  3     ,  2      ]
+  ]);
+    
+    
+      function getSum(data, column) {
+    var total = 0;
+    for (i = 0; i < data.getNumberOfRows(); i++)
+      total = total + data.getValue(i, column);
+    return total;
+  }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // Define category pickers for 'Country', 'Region/State' and 'City'
+    var countryPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'control1',
+        'options': {
+            'filterColumnLabel': 'Education',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': false,
+                'allowNone': false
+            }
+        },
+        'state': {
+            selectedValues: ['USA']
+        }
+    });
+    
+    var regionPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'control2',
+        'options': {
+            'filterColumnLabel': 'Nationality',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': false,
+                'allowNone': false
+            }
+        },
+        'state': {
+            selectedValues: ['Canada']
+        }
+    });
+
+
+
+
+    
+    // Define a bar chart to show 'Population' data
+    var barChart = new google.visualization.ChartWrapper({
+        'chartType': 'BarChart',
+        'containerId': 'chart1',
+        'options': {
+            'width': 300,
+            'height': 300
+        },
+        'view': {
+            'columns': [3, 5]
+        }
+    });
+    
+    var pieChartA = new google.visualization.ChartWrapper({
+        'chartType': 'PieChart',
+        'containerId': 'chart2',
+        'options': {
+            'width': 300,
+            'height': 300
+        }
+    });
+    
+    var pieChartB = new google.visualization.ChartWrapper({
+        'chartType': 'PieChart',
+        'containerId': 'chart3',                
+        'options': {
+            'width': 300,
+            'height': 300
+        }
+    });
+    
+
+
+
+
+
+
+
+
+    // use a "ready" event handler on the BarChart to aggregate the data for the PieCharts
+    google.visualization.events.addListener(barChart, 'ready', function () {
+        // get the filtered data used to draw the BarChart
+        var FilteredData = barChart.getDataTable();
+        
+
+
+			  var SumEmotionsData = new google.visualization.DataTable()
+
+             SumEmotionsData.addColumn('string', 'Emotion'); // Implicit domain column.
+             SumEmotionsData.addColumn('number', 'Intensity'); // Implicit data column.
+              SumEmotionsData.addRow(['Disgust',   getSum(FilteredData, 5)  ]);
+              SumEmotionsData.addRow(['Fear',      getSum(FilteredData, 6)  ]);
+              SumEmotionsData.addRow(['Happiness',     getSum(FilteredData,7)  ]);
+              SumEmotionsData.addRow(['Sadness',     getSum(FilteredData, 8)  ]);
+              SumEmotionsData.addRow(['Anger',     getSum(FilteredData, 9)  ]);
+              SumEmotionsData.addRow(['Surprise',     getSum(FilteredData, 10)  ]);
+              
+              
+					var table = new google.visualization.Table(document.getElementById('tablechart'));
+              table.draw(SumEmotionsData, {showRowNumber: true, width: '100%', height: '100%'});
+
+
+
+
+
+
+
+
+
+
+
+
+        pieChartA.setDataTable(SumEmotionsData);
+        pieChartA.draw();
+        
+
+
+
+
+
+
+    });
+    
+    // Create the dashboard.
+    var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
+    dash.bind(countryPicker, regionPicker);
+    dash.bind(regionPicker, [barChart]);
+    dash.draw(data);
+}
+
+google.setOnLoadCallback(drawVisualization);
