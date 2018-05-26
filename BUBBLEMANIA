@@ -1,0 +1,467 @@
+google.load('visualization', '1', {packages: ['corechart','controls','table','treemap']});
+
+function drawVisualization() {
+		///////////////////////////////////////////////////////////////////////////////
+    //                           PREPARE    DATA 
+		///////////////////////////////////////////////////////////////////////////////
+
+
+
+var rawdata = [
+    ["Gender", "Age", "Income","Nationality","Education","Disgust","Fear","Happiness","Sadness", "Anger","Surprise" ,"Interest","Sub Interest"],
+    ["Male" ,  30,	 13212,    "Chinese",        "PhD"    ,   5    ,  7 , 	  3     ,     2      ,  1     ,  2,   "Sex" ,"Fishing"  ],
+    ["Female", 42, 	 22320,    "USA",         "Highschool" ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9,   "Tech" , "Business"   ],
+    ["Female", 52,   723123,    "Canada",     "Undergrad" ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2,    "Tech" , "Business"    ],
+    ["Female", 34,   32354,    "Canada",     "Highschool" ,   4    ,  3 ,     3     ,     9      ,  5     ,  7,   "Tech" , "Filming"     ],
+    ["Male",   51,   43622,    "Mexico",     "Undergrad"   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1,   "Tech" , "Business"     ],
+    ["Male",   24,   57863,    "Chinese",     "Highschool" ,  8    ,  5 ,     3     ,     2      ,  7     ,  5,   "Sewing" , "Business"     ],
+    ["Female", 42, 	 22320,    "USA",         "PhD"        ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9,   "Tech" , "Sewing"     ],
+    ["Female", 52,   723123,    "Canada",     "Undergrad" ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2,   "Filming" , "Business"     ],
+    ["Female", 34,   32354,    "Canada",     "Highschool" ,   4    ,  3 ,     3     ,     9      ,  5     ,  7,   "Tech" , "Business"     ],
+    ["Male",   51,   43622,    "Mexico",     "Undergrad"   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1,   "Sewing" , "Business"     ],
+    ["Male",   24,   57863,    "Chinese",     "Highschool" ,  8    ,  5 ,     3     ,     2      ,  7     ,  5,   "Sex" , "Business"      ],
+    ["Female", 42, 	 22320,    "USA",         "Undergrad"  ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9,   "Tech" , "Sex"     ],
+    ["Female", 52,   723123,    "Canada",     "Undergrad" ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2,  "Tech" , "Business"      ],
+    ["Female", 34,   32354,    "Canada",     "Undergrad"  ,   4    ,  3 ,     3     ,     9      ,  5     ,  7,  "Tech" , "Business"      ],
+    ["Male",   51,   43622,    "Canada",     "Undergrad"   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1  ,  "Sewing" , "Filming"       ],
+    ["Male",   24,   57863,    "Chinese",     "Highschool" ,  8    ,  5 ,     3     ,     2      ,  7     ,  5 ,  "Tech" , "Business"         ],
+    ["Female", 42, 	 22320,    "Chinese",     "Highschool" ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9,  "Tech" , "Sewing"         ],
+    ["Female", 52,   723123,    "Canada",     "PhD"       ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2  ,  "Tech" , "Sex"       ],
+    ["Female", 34,   32354,    "Canada",     "PhD"        ,   4    ,  3 ,     3     ,     9      ,  5     ,  7,  "Tech" , "Sex"         ],
+    ["Male",   51,   43622,    "Mexico",     "Undergrad"   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1  ,  "Tech" , "Business"       ],
+    ["Male",   24,   57863,    "Chinese",     "Highschool" ,  8    ,  5 ,     3     ,     2      ,  7     ,  5  ,  "Filming" , "Business"        ],
+    ["Female", 42, 	 22320,    "USA",         "PhD"        ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9  ,  "Tech" , "Business"       ],
+    ["Female", 52,   723123,    "Canada",     "Undergrad" ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2  ,  "Business" , "Business"       ],
+    ["Female", 34,   32354,    "Canada",     "Highschool" ,   4    ,  3 ,     3     ,     9      ,  5     ,  7  ,  "Tech" , "Business"       ],
+    ["Male",   51,   43622,    "Chinese",     "Undergrad"  ,  8    ,  7 ,     5     ,     2      ,  1     ,  1  ,  "Sex" , "Business"       ],
+    ["Male",   24,   57863,    "Chinese",     "Undergrad"  ,  8    ,  5 ,     3     ,     2      ,  7     ,  5  ,  "Tech" , "Business"        ],
+    ["Female", 42, 	 22320,    "USA",         "Highschool" ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9  ,  "Filming" , "Business"       ],
+    ["Female", 52,   723123,    "Canada",     "Undergrad" ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2  ,  "Tech" , "Business"       ],
+    ["Female", 34,   32354,    "Canada",     "Undergrad"  ,   4    ,  3 ,     3     ,     9      ,  5     ,  7 ,  "Tech" , "Filming"        ],
+    ["Male",   51,   43622,    "Mexico",     "Undergrad"   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1 ,  "Tech" , "Sex"        ],
+    ["Male",   24,   57863,    "Chinese",     "Highschool" ,  8    ,  5 ,     3     ,     2      ,  7     ,  5   ,  "Tech" , "Filming"       ],
+    ["Female", 42, 	 22320,    "USA",         "Highschool" ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9   ,  "Tech" , "Business"       ],
+    ["Female", 52,   723123,    "Canada",     "PhD" ,         3    ,  7 ,  	  2     ,     6      ,  1     ,  2   ,  "Business" , "Business"       ],
+    ["Male",   51,   43622,    "Canada",     "PhD"   ,        8    ,  7 ,     5     ,     2      ,  1     ,  1    ,  "Sex" , "Business"      ],
+    ["Male",   24,   57863,    "Chinese",     "Highschool" ,  8    ,  5 ,     3     ,     2      ,  7     ,  5    ,  "Filming" , "Business"      ],
+    ["Female", 42, 	 22320,    "USA",         "Highschool" ,  2   ,   4 , 	  1     ,     4      ,  3     ,  9    ,  "Tech" , "Business"      ],
+    ["Female", 52,   723123,    "Canada",     "Undergrad" ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2  ,  "Tech" , "Business"        ],
+    ["Female", 34,   32354,    "Canada",     "Highschool" ,   4    ,  3 ,     3     ,     9      ,  5     ,  7  ,  "Fishing" , "Business"        ],
+    ["Male",   51,   43622,    "Mexico",     "Undergrad"   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1 ,  "Tech" , "Business"         ],
+    ["Male",   24,   57863,    "Chinese",     "Highschool" ,  8    ,  5 ,     3     ,     2      ,  7     ,  5  ,  "Sex" , "Business"        ],
+    ["Female", 42, 	 22320,    "USA",         "PhD" ,         2   ,   4 , 	  1     ,     4      ,  3     ,  9  ,  "Tech" , "Sex"        ],
+    ["Female", 52,   723123,    "Canada",     "Undergrad" ,   3    ,  7 ,  	  2     ,     6      ,  1     ,  2  ,  "Fishing" , "Business"        ],
+    ["Female", 34,   32354,    "Canada",     "PhD" ,          4    ,  3 ,     3     ,     9      ,  5     ,  7  ,  "Tech" , "Sewing"        ],
+    ["Male",   51,   43622,    "Mexico",     "Undergrad"   ,  8    ,  7 ,     5     ,     2      ,  1     ,  1  ,  "Tech" , "Business"        ],
+    ["Male",   24,   57863,    "Chinese",     "Undergrad"  ,  8    ,  5 ,     3     ,     2      ,  7     ,  5,  "Sex" , "Business"   ],
+    ["Male",   34,   124242,    "USA",           "PhD"    ,   5    ,  7 ,     6     ,     7      ,  3     ,  2   ,  "Tech" , "Business"       ]
+  ];
+
+
+
+
+    var data = google.visualization.arrayToDataTable(rawdata);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+		///////////////////////////////////////////////////////////////////////////////
+    //                      PREPARE     INTERNAL    FUNCTIONS  
+		///////////////////////////////////////////////////////////////////////////////
+
+      function getSum(datatemp, column) {
+        var total = 0;
+        for (i = 0; i < datatemp.getNumberOfRows(); i++)
+          total = total + datatemp.getValue(i, column);
+        return total;
+      };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      
+    
+    ///////////////////////////////////////////////////////////////////////////////
+    //                      DEFINE     SCREENER    TOOLS  
+		///////////////////////////////////////////////////////////////////////////////
+    
+    var IncomePicker = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'IncomeControl',
+        'options': {
+            'filterColumnLabel': 'Income'
+            }                                                  });
+        
+    var AgePicker = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'AgeControl',
+        'options': {
+            'filterColumnLabel': 'Age'
+            }                                                  });
+
+    var GenderPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'GenderControl',
+        'options': {
+            'filterColumnLabel': 'Gender',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                     });
+
+      var EducationPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'EducationControl',
+        'options': {
+            'filterColumnLabel': 'Education',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });  
+
+    var NationalityPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'NationControl',
+        'options': {
+            'filterColumnLabel': 'Nationality',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });
+
+
+
+    var InterestPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'InterestControl',
+        'options': {
+            'filterColumnLabel': 'Interest',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });
+
+
+
+
+
+
+
+
+
+		///////////////////////////////////////////////////////////////////////////////
+    //           Define Charts 
+		///////////////////////////////////////////////////////////////////////////////
+
+    var barChart = new google.visualization.ChartWrapper({
+        'chartType': 'BarChart',
+        'containerId': 'Barchart1',
+        'options': {
+            'width': 800,
+            'height': 1500,
+             title: 'Emotion Response by Age', 
+				 		 chartArea: {'width': '90%', 'height': '90%'}
+            },
+        'view': {
+            'columns': [1, 5,6,7,8,9,10]
+        }
+    });
+    
+    var EmotionSumPieChart = new google.visualization.ChartWrapper({
+        'chartType': 'PieChart',
+        'containerId': 'Piechart1',
+        'options': {
+            'width': 800,
+            'height': 800,
+            title: 'Average Emotions Felt ',
+            pieSliceText: 'label',
+            chartArea: {'width': '80%', 'height': '90%'},
+            is3D: true
+        }
+    });
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		///////////////////////////////////////////////////////////////////////////////
+    //            Prepare the Filtered Data for Respective Charts
+		///////////////////////////////////////////////////////////////////////////////
+    google.visualization.events.addListener(barChart, 'ready', function () {
+        // get the filtered data used to draw the BarChart
+        var FilteredData = barChart.getDataTable();
+        
+			  var SumEmotionsData = new google.visualization.DataTable()
+
+              SumEmotionsData.addColumn('string', 'Emotion'); // Implicit domain column.
+              SumEmotionsData.addColumn('number', 'Intensity'); // Implicit data column.
+              SumEmotionsData.addRow(['Disgust',   getSum(FilteredData, 5)  ]);
+              SumEmotionsData.addRow(['Fear',      getSum(FilteredData, 6)  ]);
+              SumEmotionsData.addRow(['Happiness',     getSum(FilteredData,7)  ]);
+              SumEmotionsData.addRow(['Sadness',     getSum(FilteredData, 8)  ]);
+              SumEmotionsData.addRow(['Anger',     getSum(FilteredData, 9)  ]);
+              SumEmotionsData.addRow(['Surprise',     getSum(FilteredData, 10)  ]);
+              EmotionSumPieChart.setDataTable(SumEmotionsData);
+              EmotionSumPieChart.draw();
+
+
+
+
+
+
+
+
+        // Group Emotion data by Interests Groups
+
+        var InterestbyFear = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(6),
+            column: 6,
+            aggregation: google.visualization.data.sum
+        }]);
+        
+        var InterestbyHappiness = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+
+        var AgebyInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(1),
+            column: 1,
+            aggregation: google.visualization.data.avg
+        }]);
+
+        var IncomebyInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(2),
+            column: 2,
+            aggregation: google.visualization.data.avg
+        }]);
+
+
+
+	  var EmotionInterestData = new google.visualization.DataTable()
+              EmotionInterestData.addColumn('string', 'Interest'); 
+              EmotionInterestData.addColumn('number', 'Age');
+              EmotionInterestData.addColumn('number', 'Income'); 
+              EmotionInterestData.addColumn('number', 'Fear');
+              EmotionInterestData.addColumn('number', 'Happiness');
+
+    for (i = 0; i < InterestbyHappiness.getNumberOfRows(); i++){
+        	        EmotionInterestData.addRow([
+                  InterestbyFear.getValue(i, 0),   
+                  AgebyInterest.getValue(i, 1),
+                  IncomebyInterest.getValue(i, 1),
+                  InterestbyFear.getValue(i, 1),
+                  InterestbyHappiness.getValue(i, 1)
+			]);     
+      }
+
+      var Bubblechart = new google.visualization.BubbleChart(document.getElementById('noAura'));
+      Bubblechart.draw(EmotionInterestData)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var ParticipantTableChart = new google.visualization.Table(document.getElementById('fulltablechart'));
+        ParticipantTableChart.draw(EmotionInterestData, {showRowNumber: true, width: '100%', height: '100%'});
+
+
+
+
+    });
+    
+    // Create the dashboard.
+    var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
+    dash.bind([IncomePicker,InterestPicker,GenderPicker,AgePicker,EducationPicker, NationalityPicker], [barChart]);
+    dash.draw(data);
+}
+
+google.setOnLoadCallback(drawVisualization);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="dashboard">
+
+    <div id="AgeControl"></div>
+    <div id="IncomeControl"></div>
+    <div id="NationControl"></div>
+    <div id="EducationControl"></div>
+    <div id="GenderControl"></div>
+
+    <div id="InterestControl"></div>
+
+    <div id="fulltablechart"></div>
+    
+    <div id="noAura" style="width: 900px; height: 500px;"></div>
+
+    <div id="Piechart1"></div>
+    <div id="Barchart1"></div>
+    
+    <div id="fulltablechart"></div>
+
+
+</div>
