@@ -1,4 +1,4 @@
-google.load('visualization', '1', {packages: ['corechart','controls','table','treemap','geochart'], 'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
+google.load('visualization', '1', {packages: ['corechart','controls','table','treemap','geochart','sankey'], 'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
 
 function drawVisualization() {
 		///////////////////////////////////////////////////////////////////////////////
@@ -272,7 +272,7 @@ var rawdata = [
 
         // Group Emotion data by Interests Groups
 
-        var InterestbyEngagement = google.visualization.data.group(FilteredData, [{
+        var EngagementByInterest = google.visualization.data.group(FilteredData, [{
             type: 'string',
             label: FilteredData.getColumnLabel(11),
             column: 11,
@@ -283,7 +283,7 @@ var rawdata = [
             aggregation: google.visualization.data.sum
         }]);
         
-        var InterestbyHappiness = google.visualization.data.group(FilteredData, [{
+        var HappinessByInterest = google.visualization.data.group(FilteredData, [{
             type: 'string',
             label: FilteredData.getColumnLabel(11),
             column: 11,
@@ -372,6 +372,29 @@ var rawdata = [
 
 
 
+
+
+
+
+        
+        var DisgustByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+
+
+
+
+
+
+
+
         var AgebyInterest = google.visualization.data.group(FilteredData, [{
             type: 'string',
             label: FilteredData.getColumnLabel(11),
@@ -402,13 +425,13 @@ var rawdata = [
               EmotionInterestData.addColumn('number', 'Engagement');
               EmotionInterestData.addColumn('number', 'Happiness');
 
-    for (i = 0; i < InterestbyHappiness.getNumberOfRows(); i++){
+    for (i = 0; i < HappinessByInterest.getNumberOfRows(); i++){
         	        EmotionInterestData.addRow([
-                  InterestbyEngagement.getValue(i, 0),   
+                  EngagementByInterest.getValue(i, 0),   
                   AgebyInterest.getValue(i, 1),
                   IncomebyInterest.getValue(i, 1),
-                  InterestbyEngagement.getValue(i, 1),
-                  InterestbyHappiness.getValue(i, 1)
+                  EngagementByInterest.getValue(i, 1),
+                  HappinessByInterest.getValue(i, 1)
 			]);     
       }
 
@@ -438,20 +461,70 @@ var rawdata = [
               SankeyData.addColumn('string', 'Emotion');
               SankeyData.addColumn('number', 'Intensity'); 
 
-    for (i = 0; i < InterestbyHappiness.getNumberOfRows(); i++){
+    for (i = 0; i < HappinessByInterest.getNumberOfRows(); i++){
         	        SankeyData.addRow([
-                  InterestbyHappiness.getValue(i, 0),   
+                  HappinessByInterest.getValue(i, 0),   
                   'Happiness',
-                  InterestbyHappiness.getValue(i, 1)
+                  HappinessByInterest.getValue(i, 1)
 			]);     
       }
-    for (i = 0; i < InterestbyHappiness.getNumberOfRows(); i++){
+
+    for (i = 0; i < SadnessByInterest.getNumberOfRows(); i++){
         	        SankeyData.addRow([
-                  InterestbyHappiness.getValue(i, 0),   
-                  'Happiness',
-                  InterestbyHappiness.getValue(i, 1)
+                  SadnessByInterest.getValue(i, 0),   
+                  'Sadness',
+                  SadnessByInterest.getValue(i, 1)
 			]);     
       }
+
+    for (i = 0; i < SurpriseByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  SurpriseByInterest.getValue(i, 0),   
+                  'Surprise',
+                  SurpriseByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < AngerByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  AngerByInterest.getValue(i, 0),   
+                  'Anger',
+                  AngerByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < FearByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  FearByInterest.getValue(i, 0),   
+                  'Fear',
+                  FearByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < DisgustByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  DisgustByInterest.getValue(i, 0),   
+                  'Disgust',
+                  DisgustByInterest.getValue(i, 1)
+			]);     
+      }
+
+
+
+
+  var SankeyChart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+        SankeyChart.draw(SankeyData)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -514,7 +587,6 @@ var rawdata = [
               TreeData.addColumn('number', 'Income'); 
               TreeData.addColumn('number', 'Engagement');
 
-
             TreeData.addRow([
            'Global',   
             null,
@@ -547,35 +619,35 @@ var rawdata = [
             ]);     
 
 
-    for (i = 0; i < InterestbyHappiness.getNumberOfRows(); i++){
+    for (i = 0; i < HappinessByInterest.getNumberOfRows(); i++){
 
 
-    if (InterestbyEngagement.getValue(i, 0) === 'A1' || InterestbyEngagement.getValue(i, 0) ==='A2' || InterestbyEngagement.getValue(i, 0) === 'A3'   ) {
+    if (EngagementByInterest.getValue(i, 0) === 'A1' || EngagementByInterest.getValue(i, 0) ==='A2' || EngagementByInterest.getValue(i, 0) === 'A3'   ) {
             TreeData.addRow([
-            InterestbyEngagement.getValue(i, 0),   
+            EngagementByInterest.getValue(i, 0),   
             'A',
-            InterestbyEngagement.getValue(i, 1),
-            InterestbyHappiness.getValue(i, 1)
+            EngagementByInterest.getValue(i, 1),
+            HappinessByInterest.getValue(i, 1)
             ]);     
 
         }
 
-    if (InterestbyEngagement.getValue(i, 0) === 'B1' || InterestbyEngagement.getValue(i, 0) ==='B2' || InterestbyEngagement.getValue(i, 0) === 'B3'   ) {
+    if (EngagementByInterest.getValue(i, 0) === 'B1' || EngagementByInterest.getValue(i, 0) ==='B2' || EngagementByInterest.getValue(i, 0) === 'B3'   ) {
             TreeData.addRow([
-            InterestbyEngagement.getValue(i, 0),   
+            EngagementByInterest.getValue(i, 0),   
             'B',
-            InterestbyEngagement.getValue(i, 1),
-            InterestbyHappiness.getValue(i, 1)
+            EngagementByInterest.getValue(i, 1),
+            HappinessByInterest.getValue(i, 1)
             ]);     
 
         }
 
-    if (InterestbyEngagement.getValue(i, 0) === 'C1' || InterestbyEngagement.getValue(i, 0) ==='C2' || InterestbyEngagement.getValue(i, 0) === 'C3'   ) {
+    if (EngagementByInterest.getValue(i, 0) === 'C1' || EngagementByInterest.getValue(i, 0) ==='C2' || EngagementByInterest.getValue(i, 0) === 'C3'   ) {
             TreeData.addRow([
-            InterestbyEngagement.getValue(i, 0),   
+            EngagementByInterest.getValue(i, 0),   
             'C',
-            InterestbyEngagement.getValue(i, 1),
-            InterestbyHappiness.getValue(i, 1)
+            EngagementByInterest.getValue(i, 1),
+            HappinessByInterest.getValue(i, 1)
             ]);     
 
         }
@@ -723,6 +795,17 @@ google.setOnLoadCallback(drawVisualization);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 <div id="dashboard">
 
     <div id="AgeControl"></div>
@@ -733,7 +816,7 @@ google.setOnLoadCallback(drawVisualization);
 
 
     <div id="InterestControl"></div>
-
+  <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
     <div id="Treechart_div" style="width: 900px; height: 500px;"></div>
 
 
@@ -750,4 +833,3 @@ google.setOnLoadCallback(drawVisualization);
 
 
 </div>
-
