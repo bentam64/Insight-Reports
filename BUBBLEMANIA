@@ -1,4 +1,4 @@
-google.load('visualization', '1', {packages: ['corechart','controls','table','treemap','geochart','sankey'], 'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
+google.load('visualization', '1', {packages: ['corechart','controls','table','treemap','geochart','gauge','sankey'], 'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
 
 function drawVisualization() {
 		///////////////////////////////////////////////////////////////////////////////
@@ -8,11 +8,11 @@ function drawVisualization() {
 var rawdata = [
     ['Gender', 'Age', 'Income','Nationality','Education','Disgust','Fear','Happiness','Sadness', 'Anger','Surprise' ,'Interest','Sub Interest','Engagement'],
     ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A1' ,'A' ,Math.random()],
-    ['Male' ,  30,	 13212,      'Canada','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A1' ,'A' ,Math.random()],
-    ['Male' ,  30,	 13212,      'Mexico','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A2' ,'A' ,Math.random()],
+    ['Male' ,  30,	 43212,      'Canada','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A1' ,'A' ,Math.random()],
+    ['Male' ,  60,	 13212,      'Mexico','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A2' ,'A' ,Math.random()],
     ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'B1' ,'B' ,Math.random()],
     ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'B2' ,'B' ,Math.random()],
-    ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'B3' ,'B' ,Math.random()],
+    ['Male' ,  20,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'B3' ,'B' ,Math.random()],
     ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'C2' ,'C' ,Math.random()],
     ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'C1' ,'C' ,Math.random()]
   ];
@@ -267,6 +267,9 @@ var rawdata = [
 
 
 
+        var GaugeChart = new 		  google.visualization.Gauge(document.getElementById('Gaugechart_div'));
+
+        GaugeChart.draw(SumEmotionsData)
 
 
 
@@ -767,45 +770,6 @@ google.setOnLoadCallback(drawVisualization);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div id="dashboard">
 
     <div id="AgeControl"></div>
@@ -816,6 +780,9 @@ google.setOnLoadCallback(drawVisualization);
 
 
     <div id="InterestControl"></div>
+    <div id="chart_div" style="width: 400px; height: 120px;"></div>
+    <div id="Gaugechart_div" style="width: 400px; height: 120px;"></div>
+
   <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
     <div id="Treechart_div" style="width: 900px; height: 500px;"></div>
 
