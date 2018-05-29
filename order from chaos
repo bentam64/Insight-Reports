@@ -195,6 +195,8 @@ function drawVisualization() {
 
     google.visualization.events.addListener(barChart, 'ready', function () {
 
+        var FilteredData = barChart.getDataTable();
+        
 
         var EngagementByInterest = google.visualization.data.group(FilteredData, [{
             type: 'string',
@@ -262,16 +264,6 @@ function drawVisualization() {
             aggregation: google.visualization.data.sum
         }]);
         
-        var SadnessByInterest = google.visualization.data.group(FilteredData, [{
-            type: 'string',
-            label: FilteredData.getColumnLabel(11),
-            column: 11,
-        }], [{
-            type: 'number',
-            label: FilteredData.getColumnLabel(7),
-            column: 7,
-            aggregation: google.visualization.data.sum
-        }]);
         
         var DisgustByInterest = google.visualization.data.group(FilteredData, [{
             type: 'string',
@@ -325,19 +317,6 @@ function drawVisualization() {
       }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////
@@ -346,8 +325,6 @@ function drawVisualization() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        var FilteredData = barChart.getDataTable();
-        
 			  var SumEmotionsData = new google.visualization.DataTable()
 
               SumEmotionsData.addColumn('string', 'Emotion'); // Implicit domain column.
@@ -419,11 +396,7 @@ function drawVisualization() {
       }
 
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 	  var TreeData = new google.visualization.DataTable()
               TreeData.addColumn('string', 'ID'); 
@@ -542,14 +515,6 @@ function drawVisualization() {
 
 
 
-
-
-
-
-
-
-
-
     });
     
     // Create the dashboard.
@@ -559,8 +524,6 @@ function drawVisualization() {
 }
 
 google.setOnLoadCallback(drawVisualization);
-
-
 
 
 
