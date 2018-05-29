@@ -1,0 +1,622 @@
+
+
+
+
+
+
+
+    
+      
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////
+//////                    LOAD	PACKAGES	+		PREPARE DATA 	+   DEFINE INTERNAL FUNCTIONS                
+//////  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+google.load('visualization', '1', {packages: ['corechart','controls','table','treemap','geochart','gauge','sankey'], 'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
+
+function drawVisualization() {
+
+///////////////////////////////////////////////////////////////////////////////
+
+    var rawdata = [
+        ['Gender', 'Age', 'Income','Nationality','Education','Disgust','Fear','Happiness','Sadness', 'Anger','Surprise' ,'Interest','Sub Interest','Engagement'],
+        ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A1' ,'A' ,Math.random()],
+        ['Male' ,  30,	 43212,      'Canada','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A1' ,'A' ,Math.random()],
+        ['Male' ,  60,	 13212,      'Mexico','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'A2' ,'A' ,Math.random()],
+        ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'B1' ,'B' ,Math.random()],
+        ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'B2' ,'B' ,Math.random()],
+        ['Male' ,  20,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'B3' ,'B' ,Math.random()],
+        ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'C2' ,'C' ,Math.random()],
+        ['Male' ,  30,	 13212,      'China','PhD',Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),'C1' ,'C' ,Math.random()]
+      ];
+
+
+    var data = google.visualization.arrayToDataTable(rawdata);
+
+///////////////////////////////////////////////////////////////////////////////
+
+      function getSum(datatemp, column) {
+        var total = 0;
+        for (i = 0; i < datatemp.getNumberOfRows(); i++)
+          total = total + datatemp.getValue(i, column);
+        return total;
+      };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////
+//////                    DEFINE     SCREENER    TOOLS   FOR    USER INPUT                
+//////  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    var IncomePicker = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'IncomeControl',
+        'options': {
+            'filterColumnLabel': 'Income'
+            }                                                  });
+        
+    var AgePicker = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'AgeControl',
+        'options': {
+            'filterColumnLabel': 'Age'
+            }                                                  });
+
+    var GenderPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'GenderControl',
+        'options': {
+            'filterColumnLabel': 'Gender',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                     });
+
+      var EducationPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'EducationControl',
+        'options': {
+            'filterColumnLabel': 'Education',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });  
+
+    var NationalityPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'NationControl',
+        'options': {
+            'filterColumnLabel': 'Nationality',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });
+
+
+
+    var InterestPicker = new google.visualization.ControlWrapper({
+        'controlType': 'CategoryFilter',
+        'containerId': 'InterestControl',
+        'options': {
+            'filterColumnLabel': 'Interest',
+            'ui': {
+                'labelStacking': 'vertical',
+                'allowTyping': false,
+                'allowMultiple': true,
+                'allowNone': true
+            }            }                                                  });
+
+      
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////
+//////                                  DEFINE     CHARTS                    
+//////  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+        var barChart = new google.visualization.ChartWrapper({
+            'chartType': 'BarChart',
+            'containerId': 'Barchart1',
+            'options': {
+                'width': 800,
+                'height': 1500,
+                 title: 'Emotion Response by Age', 
+                 chartArea: {'width': '90%', 'height': '90%'}
+                },
+            'view': {
+                'columns': [1, 5,6,7,8,9,10]
+            }
+        });
+
+        var EmotionSumPieChart = new google.visualization.ChartWrapper({
+            'chartType': 'PieChart',
+            'containerId': 'Piechart1',
+            'options': {
+                'width': 800,
+                'height': 800,
+                title: 'Average Emotions Felt ',
+                pieSliceText: 'label',
+                chartArea: {'width': '80%', 'height': '90%'},
+                is3D: true
+            }
+        });
+            
+        var GaugeChart = new google.visualization.Gauge(document.getElementById('Gaugechart_div'));
+
+        var Bubblechart = new google.visualization.BubbleChart(document.getElementById('noAura'));
+
+        var SankeyChart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+
+        var ParticipantTableChart = new google.visualization.Table(document.getElementById('fulltablechart'));
+
+        var GeoChart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        var TreeChart = new google.visualization.TreeMap(document.getElementById('Treechart_div'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////
+//////            Prepare DataTable of Average Emotion Reponse by Interest and Demographics                             
+//////  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    google.visualization.events.addListener(barChart, 'ready', function () {
+
+
+        var EngagementByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(6),
+            column: 6,
+            aggregation: google.visualization.data.sum
+        }]);
+        
+        var HappinessByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+
+        var FearByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+        
+        var SadnessByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+        
+        var SurpriseByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+        
+        var AngerByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+        
+        var SadnessByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+        
+        var DisgustByInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(7),
+            column: 7,
+            aggregation: google.visualization.data.sum
+        }]);
+
+        var AgebyInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(1),
+            column: 1,
+            aggregation: google.visualization.data.avg
+        }]);
+
+        var IncomebyInterest = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(11),
+            column: 11,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(2),
+            column: 2,
+            aggregation: google.visualization.data.avg
+        }]);
+
+
+	  var EmotionInterestData = new google.visualization.DataTable()
+              EmotionInterestData.addColumn('string', 'Interest'); 
+              EmotionInterestData.addColumn('number', 'Age');
+              EmotionInterestData.addColumn('number', 'Income'); 
+              EmotionInterestData.addColumn('number', 'Engagement');
+              EmotionInterestData.addColumn('number', 'Happiness');
+
+    for (i = 0; i < HappinessByInterest.getNumberOfRows(); i++){
+        	        EmotionInterestData.addRow([
+                  EngagementByInterest.getValue(i, 0),   
+                  AgebyInterest.getValue(i, 1),
+                  IncomebyInterest.getValue(i, 1),
+                  EngagementByInterest.getValue(i, 1),
+                  HappinessByInterest.getValue(i, 1)
+			]);     
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////
+//////                             UPDATE EACH CHART WITH FILTERED DATA                             
+//////  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var FilteredData = barChart.getDataTable();
+        
+			  var SumEmotionsData = new google.visualization.DataTable()
+
+              SumEmotionsData.addColumn('string', 'Emotion'); // Implicit domain column.
+              SumEmotionsData.addColumn('number', 'Intensity'); // Implicit data column.
+              SumEmotionsData.addRow(['Disgust',   getSum(FilteredData, 5)  ]);
+              SumEmotionsData.addRow(['Fear',      getSum(FilteredData, 6)  ]);
+              SumEmotionsData.addRow(['Happiness',     getSum(FilteredData,7)  ]);
+              SumEmotionsData.addRow(['Sadness',     getSum(FilteredData, 8)  ]);
+              SumEmotionsData.addRow(['Anger',     getSum(FilteredData, 9)  ]);
+              SumEmotionsData.addRow(['Surprise',     getSum(FilteredData, 10)  ]);
+              EmotionSumPieChart.setDataTable(SumEmotionsData);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+	  var SankeyData = new google.visualization.DataTable()
+              SankeyData.addColumn('string', 'Interest'); 
+              SankeyData.addColumn('string', 'Emotion');
+              SankeyData.addColumn('number', 'Intensity'); 
+
+    for (i = 0; i < HappinessByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  HappinessByInterest.getValue(i, 0),   
+                  'Happiness',
+                  HappinessByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < SadnessByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  SadnessByInterest.getValue(i, 0),   
+                  'Sadness',
+                  SadnessByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < SurpriseByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  SurpriseByInterest.getValue(i, 0),   
+                  'Surprise',
+                  SurpriseByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < AngerByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  AngerByInterest.getValue(i, 0),   
+                  'Anger',
+                  AngerByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < FearByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  FearByInterest.getValue(i, 0),   
+                  'Fear',
+                  FearByInterest.getValue(i, 1)
+			]);     
+      }
+
+    for (i = 0; i < DisgustByInterest.getNumberOfRows(); i++){
+        	        SankeyData.addRow([
+                  DisgustByInterest.getValue(i, 0),   
+                  'Disgust',
+                  DisgustByInterest.getValue(i, 1)
+			]);     
+      }
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	  var TreeData = new google.visualization.DataTable()
+              TreeData.addColumn('string', 'ID'); 
+              TreeData.addColumn('string', 'Parent');
+              TreeData.addColumn('number', 'Income'); 
+              TreeData.addColumn('number', 'Engagement');
+              TreeData.addRow([
+             'Global',   
+              null,
+              0,
+              0
+              ]);     
+
+              TreeData.addRow([
+              'A',   
+              'Global',
+              0,
+              0
+              ]);     
+
+              TreeData.addRow([
+              'B',   
+              'Global',
+              0,
+              0
+              ]);    
+
+              TreeData.addRow([
+              'C',   
+              'Global',
+              0,
+              0
+              ]);     
+
+
+    for (i = 0; i < HappinessByInterest.getNumberOfRows(); i++){
+      if (EngagementByInterest.getValue(i, 0) === 'A1' || EngagementByInterest.getValue(i, 0) ==='A2' || EngagementByInterest.getValue(i, 0) === 'A3'   ) {
+              TreeData.addRow([
+              EngagementByInterest.getValue(i, 0),   
+              'A',
+              EngagementByInterest.getValue(i, 1),
+              HappinessByInterest.getValue(i, 1)
+              ]);     
+
+          }
+      if (EngagementByInterest.getValue(i, 0) === 'B1' || EngagementByInterest.getValue(i, 0) ==='B2' || EngagementByInterest.getValue(i, 0) === 'B3'   ) {
+              TreeData.addRow([
+              EngagementByInterest.getValue(i, 0),   
+              'B',
+              EngagementByInterest.getValue(i, 1),
+              HappinessByInterest.getValue(i, 1)
+              ]);     
+          }
+      if (EngagementByInterest.getValue(i, 0) === 'C1' || EngagementByInterest.getValue(i, 0) ==='C2' || EngagementByInterest.getValue(i, 0) === 'C3'   ) {
+              TreeData.addRow([
+              EngagementByInterest.getValue(i, 0),   
+              'C',
+              EngagementByInterest.getValue(i, 1),
+              HappinessByInterest.getValue(i, 1)
+              ]);     
+          }
+    }
+        
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var Geodata = google.visualization.data.group(FilteredData, [{
+            type: 'string',
+            label: FilteredData.getColumnLabel(3),
+            column: 3,
+        }], [{
+            type: 'number',
+            label: FilteredData.getColumnLabel(13),
+            column: 13,
+            aggregation: google.visualization.data.avg
+        }]);
+
+
+
+
+      
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////
+//////                                  DRAW      CHARTS                    
+//////  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+
+
+
+
+        GaugeChart.draw(SumEmotionsData)
+
+        EmotionSumPieChart.draw();
+
+        Bubblechart.draw(EmotionInterestData)
+
+        ParticipantTableChart.draw(SankeyData, {showRowNumber: true, width: '100%', height: '100%'});
+
+        SankeyChart.draw(SankeyData)
+
+  	    GeoChart.draw(Geodata)
+
+        TreeChart.draw(TreeData, {
+          minColor: '#f00',
+          midColor: '#ddd',
+          maxColor: '#0d0',
+          headerHeight: 15,
+          fontColor: 'black',
+          showScale: true
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+    
+    // Create the dashboard.
+    var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
+    dash.bind([IncomePicker,InterestPicker,GenderPicker,AgePicker,EducationPicker, NationalityPicker], [barChart]);
+    dash.draw(data);
+}
+
+google.setOnLoadCallback(drawVisualization);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="dashboard">
+
+    <div id="AgeControl"></div>
+    <div id="IncomeControl"></div>
+    <div id="NationControl"></div>
+    <div id="EducationControl"></div>
+    <div id="GenderControl"></div>
+
+
+    <div id="InterestControl"></div>
+    <div id="chart_div" style="width: 400px; height: 120px;"></div>
+    <div id="Gaugechart_div" style="width: 400px; height: 120px;"></div>
+
+  <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
+    <div id="Treechart_div" style="width: 900px; height: 500px;"></div>
+
+
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+
+    <div id="noAura" style="width: 900px; height: 500px;"></div>
+    <div id="fulltablechart"></div>
+    
+
+    <div id="Piechart1"></div>
+    <div id="Barchart1"></div>
+    
+    <div id="fulltablechart"></div>
+
+
+</div>
